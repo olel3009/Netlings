@@ -1,6 +1,10 @@
+from Netling import Netling
+
 class Enviroment:
-    def __init__(self) -> None:
+    def __init__(self, agentlen) -> None:
         self.agent = []
+        for i in range(agentlen):
+            self.agent.append(Netling())
         pass
 
     def move(self):

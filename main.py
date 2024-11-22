@@ -1,6 +1,8 @@
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from typing import List
 
+from Enviroment import Enviroment
+
 app = FastAPI()
 
 class ConnectionManager:
@@ -19,13 +21,13 @@ class ConnectionManager:
             await connection.send_text(message)
 
 manager = ConnectionManager()
+environment = Enviroment()
 
 @app.websocket("/ws/{client_id}")
 async def websocket_endpoint(websocket: WebSocket, client_id: int):
     await manager.connect(websocket)
     try:
         while True:
-            
-            await manager.broadcast()
+            await manager.broadcast(environment.collectAll())
     except WebSocketDisconnect:
         manager.disconnect(websocket)
