@@ -1,9 +1,15 @@
 from Netling import Netling
+from Setting import data
 
 class Enviroment:
-    def __init__(self, agentlen) -> None:
+    def __init__(self) -> None:
         self.agent = []
-        for i in range(agentlen):
+
+        #Load Settings:
+        self.config = data
+
+        #add Netlings to Enviroment:
+        for i in range(self.config["netlingSpawnCount"]):
             self.agent.append(Netling())
         pass
 
