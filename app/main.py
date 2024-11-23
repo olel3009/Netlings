@@ -37,7 +37,7 @@ async def websocket_endpoint(websocket: WebSocket, client_id: int):
     await manager.connect(websocket)
     try:
         while True:
-            agents_data = environment.collectAll(False)
+            agents_data = environment.moveAll()
             await manager.broadcast(agents_data)
             await asyncio.sleep(1 / 30)  # 30 updates per second
     except WebSocketDisconnect:

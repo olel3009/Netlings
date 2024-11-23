@@ -1,17 +1,21 @@
-class Agent:
+class Agent():
     def __init__(self,
-                x: float,
-                y: float,
-                r: float,
-                active: bool
-                ):
+                 x: float = -1,
+                 y: float = -1,
+                 r: float = -1,
+                active: bool = False,
+                speed: float = 1,
+                food: int = 100,
+             ):
         self.x = x
         self.y = y
         self.r = r
         self.active = active
+        self.food = food
+        self.speed = speed
         pass
 
-    def move(self, dx, dy, dr):
+    def move(self, dx=0, dy=0, dr=0):
         self.x += dx
         self.y += dy
         self.r += dr
@@ -20,8 +24,7 @@ class Agent:
     def teleport(self, x, y, r = None):
         self.x = x
         self.y = y
-        if self.r != None:
-            self.r = r
+        self.r = r
     
     def collect(self):
         return {

@@ -1,3 +1,6 @@
+import random
+import neat
+
 from app.Netling import Netling
 from app.Setting import data
 
@@ -10,20 +13,23 @@ class Enviroment:
 
         #add Netlings to Enviroment:
         for i in range(self.config["netlingSpawnCount"]):
-            self.agent.append(Netling())
+            x, y = self.randomPos()
+            genome = neat.DefaultGenome(random.randint(0, 10000))
+            self.agent.append(Netling(genome, x, y, True))
         pass
 
-    def move(self):
+    def moveAll(self):
         for agent in self.agent:
-            agent.calculate()
-        return self.collectAll()
-
-    def calculate(self):
-        #TODO
-        pass
+            agent.move()
+        return self.collectAll(False)
 
     def collectAll(self, debugging: bool):
         info = []
         for agent in self.agent:
             info.append(agent.collect())
         return info
+
+    def randomPos(self):
+        x = random.randint(0, data["environmentSize"]["width"])
+        y = random.randint(0, data["environmentSize"]["height"])
+        return x, y
