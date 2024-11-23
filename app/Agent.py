@@ -28,5 +28,7 @@ class Agent:
             "x": self.x,
             "y": self.y,
             "r": self.r,
-            "active": self.active
+            "active": self.active,
+            "type": self.__class__.__name__
         }
+

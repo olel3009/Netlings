@@ -1,10 +1,8 @@
-from Agent import Agent
+from app.Agent import Agent
 
 class Netling(Agent):
     def __init__(self):
-        self.x = -1
-        self.y = -1
-        self.r = -1
+        super().__init__(-1, -1, -1, False)
         pass
 
     def collect(self):

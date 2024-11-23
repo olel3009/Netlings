@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-time Agent Visualization</title>
+    <style>
+        #agent-container {
+            height: 500px;
+            background-color: #f0f0f0;
+            position: relative;
+            border: 1px solid #ccc;
+        }
+        .agent {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: red;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <div id="agent-container"></div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            console.log("WebSocket connection initializing...");
+            const websocket = new WebSocket("ws://127.0.0.1:8011/ws/1");
+            console.log("READY")
+            websocket.onmessage = function(event) {
+                console.log("Message received from server." + event.data);
+            }
+
+            websocket.onclose = function() {
+                console.log("WebSocket connection closed.");
+                alert("Connection closed. Refresh to reconnect.");
+            };
+
+            websocket.onerror = function(error) {
+                console.error("WebSocket error: ", error);
+            };
+        });
+    </script>
+</body>
+</html>

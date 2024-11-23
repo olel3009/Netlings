@@ -1,5 +1,5 @@
-from Netling import Netling
-from Setting import data
+from app.Netling import Netling
+from app.Setting import data
 
 class Enviroment:
     def __init__(self) -> None:
@@ -17,7 +17,7 @@ class Enviroment:
         for agent in self.agent:
             agent.calculate()
         return self.collectAll()
-    
+
     def calculate(self):
         #TODO
         pass
@@ -25,5 +25,5 @@ class Enviroment:
     def collectAll(self, debugging: bool):
         info = []
         for agent in self.agent:
-            info.append(agent.collect(debugging))
-        pass
+            info.append(agent.collect())
+        return info
