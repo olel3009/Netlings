@@ -1,3 +1,4 @@
+from app.Setting import IDManager
 class Agent():
     def __init__(self,
                  x: float = -1,
@@ -13,12 +14,16 @@ class Agent():
         self.active = active
         self.food = food
         self.speed = speed
+        self.id = IDManager.getID()
         pass
 
     def move(self, dx=0, dy=0, dr=0):
         self.x += dx
         self.y += dy
         self.r += dr
+        pass
+
+    def calculate(self):
         pass
 
     def teleport(self, x, y, r = None):
@@ -32,6 +37,7 @@ class Agent():
             "y": self.y,
             "r": self.r,
             "active": self.active,
+            "id": self.id,
             "type": self.__class__.__name__
         }
 

@@ -9,12 +9,18 @@ class Netling(Agent):
         self.genome = genome
         pass
 
-    def move(self):
-        output = self.brain.activate([self.x, self.y])
+    def move(self, dx, dy, dr):
+        super().move(dx, dy, dr)
+
+    def calculate(self):
+        output = self.brain()
         dx = (output[0] - 0.5) * self.speed
         dy = (output[0] - 0.5) * self.speed
         dr = 0
-        super().move(dx, dy, dr)
+        self.move(dx, dy, dr)
+
+    def brain(self):
+        return self.brain.activate([self.x, self.y])
 
     def collect(self):
         return super().collect()
