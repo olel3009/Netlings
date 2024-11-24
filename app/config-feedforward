@@ -1,7 +1,7 @@
 [NEAT]
 fitness_criterion = max
-fitness_threshold = 10.0
-pop_size = 1000
+fitness_threshold = 3.98
+pop_size = 500
 reset_on_extinction = False
 
 [DefaultGenome]
@@ -9,13 +9,13 @@ num_inputs = 2
 num_hidden = 1
 num_outputs = 1
 initial_connection = partial_direct 0.5
-feed_forward = False
+feed_forward = True
 compatibility_disjoint_coefficient = 1.0
 compatibility_weight_coefficient = 0.6
-conn_add_prob = 0.6
-conn_delete_prob = 0.4
-node_add_prob = 0.4
-node_delete_prob = 0.3
+conn_add_prob = 0.2
+conn_delete_prob = 0.2
+node_add_prob = 0.2
+node_delete_prob = 0.2
 activation_default = my_sinc_function
 activation_options = sigmoid my_sinc_function
 activation_mutate_rate = 0.1
@@ -25,8 +25,8 @@ aggregation_mutate_rate = 0.1
 bias_init_mean = 0.0
 bias_init_stdev = 1.0
 bias_replace_rate = 0.1
-bias_mutate_rate = 0.9
-bias_mutate_power = 1.0
+bias_mutate_rate = 0.7
+bias_mutate_power = 0.5
 bias_max_value = 30.0
 bias_min_value = -30.0
 response_init_mean = 1.0
@@ -40,9 +40,9 @@ weight_max_value = 30.0
 weight_min_value = -30.0
 weight_init_mean = 0.0
 weight_init_stdev = 1.0
-weight_mutate_rate = 0.9
+weight_mutate_rate = 0.8
 weight_replace_rate = 0.1
-weight_mutate_power = 1.0
+weight_mutate_power = 0.5
 enabled_default = True
 enabled_mutate_rate = 0.01
 
@@ -51,7 +51,7 @@ compatibility_threshold = 3.1
 
 [DefaultStagnation]
 species_fitness_func = mean
-max_stagnation = 10
+max_stagnation = 20
 
 [DefaultReproduction]
 elitism = 5

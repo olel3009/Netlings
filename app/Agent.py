@@ -15,6 +15,8 @@ class Agent():
         self.food = food
         self.speed = speed
         self.id = IDManager.getID()
+        self.width = 10
+        self.height = 10
         pass
 
     def move(self, dx=0, dy=0, dr=0):
@@ -40,4 +42,5 @@ class Agent():
             "id": self.id,
             "type": self.__class__.__name__
         }
-
+    def collision(self, instance):
+        return None
