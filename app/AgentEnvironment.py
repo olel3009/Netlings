@@ -20,7 +20,8 @@ class Enviroment:
 
     def moveAll(self):
         for agent in self.agent:
-            agent.move()
+            agent.calculate()
+            agent.checkCollision()
         return self.collectAll(False)
 
     def collectAll(self, debugging: bool):

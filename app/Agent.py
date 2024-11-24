@@ -21,6 +21,9 @@ class Agent():
         self.r += dr
         pass
 
+    def calculate(self):
+        pass
+
     def teleport(self, x, y, r = None):
         self.x = x
         self.y = y

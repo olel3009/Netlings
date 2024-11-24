@@ -3,6 +3,7 @@ from typing import List
 import json
 import asyncio
 
+from app.Setting import data
 from app.AgentEnvironment import Enviroment
 
 app = FastAPI()
@@ -46,15 +47,6 @@ async def websocket_endpoint(websocket: WebSocket, client_id: int):
         print(f"Error: {e}")
         manager.disconnect(websocket)
 
-@app.websocket("/heartbeat/")
-async def heartbeat_endpoint(websocket: WebSocket):
-    await manager.connect(websocket)
-    try:
-        while True:
-            await websocket.send_text("heartbeat")
-            await asyncio.sleep(5)  # Sends a heartbeat every 5 seconds
-    except WebSocketDisconnect:
-        manager.disconnect(websocket)
-    except Exception as e:
-        print(f"Error: {e}")
-        manager.disconnect(websocket)
+@app.get("/settings")
+async def settings():
+    return data
