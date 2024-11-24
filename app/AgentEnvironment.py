@@ -38,3 +38,8 @@ class Enviroment:
         x = random.randint(0, data["environmentSize"]["width"])
         y = random.randint(0, data["environmentSize"]["height"])
         return x, y
+
+    def getID(self, id):
+        for agent in self.agent:
+            if agent.id == id:
+                return agent.collect()

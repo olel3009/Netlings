@@ -3,6 +3,9 @@ from typing import List
 import json
 import asyncio
 
+from fontTools.misc.cython import returns
+from numpy import integer
+
 from app.Setting import data
 from app.AgentEnvironment import Enviroment
 
@@ -50,3 +53,7 @@ async def websocket_endpoint(websocket: WebSocket, client_id: int):
 @app.get("/settings")
 async def settings():
     return data
+
+@app.get("/id")
+async def getID(id: integer):
+    return environment.getID(id)
