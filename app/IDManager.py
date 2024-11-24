@@ -3,5 +3,5 @@ class IDManager:
         self.id = -1
 
     def getID(self):
-        id += 1
-        return id
+        self.id += 1
+        return self.id

@@ -2,8 +2,6 @@ from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from typing import List
 import json
 import asyncio
-
-from fontTools.misc.cython import returns
 from numpy import integer
 
 from app.Setting import data
@@ -55,5 +53,5 @@ async def settings():
     return data
 
 @app.get("/id")
-async def getID(id: integer):
+async def getID(id: int):
     return environment.getID(id)

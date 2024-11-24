@@ -1,4 +1,4 @@
-from Setting import IDManager
+from app.Setting import IDManager
 class Agent():
     def __init__(self,
                  x: float = -1,
@@ -14,8 +14,7 @@ class Agent():
         self.active = active
         self.food = food
         self.speed = speed
-        self.id = id
-        id += IDManager.getID()
+        self.id = IDManager.getID()
         pass
 
     def move(self, dx=0, dy=0, dr=0):

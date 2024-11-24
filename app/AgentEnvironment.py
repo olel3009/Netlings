@@ -3,7 +3,7 @@ import neat
 
 from app.Netling import Netling
 from app.Setting import data
-from Quadtree import  Quadtree
+from app.Quadtree import  Quadtree
 
 class Enviroment:
     def __init__(self) -> None:
@@ -13,19 +13,22 @@ class Enviroment:
         self.config = data
 
         #Load Quadtree
-        self.quadtree = Quadtree(0,0, data["width"], data["height"])
+        self.quadtree = Quadtree(0,0, data["environmentSize"]["width"], data["environmentSize"]["height"])
 
         #add Netlings to Enviroment:
         for i in range(self.config["netlingSpawnCount"]):
             x, y = self.randomPos()
             genome = neat.DefaultGenome(random.randint(0, 10000))
-            self.agent.append(Netling(genome, x, y, True))
+            netling = Netling(genome, x, y, True)
+            self.agent.append(netling)
+            self.quadtree.insert(netling)
         pass
 
     def moveAll(self):
         for agent in self.agent:
-            agent.calculate()
-            agent.checkCollision()
+            #agent.calculate()
+            #agent.checkCollision()
+            pass
         return self.collectAll(False)
 
     def collectAll(self, debugging: bool):

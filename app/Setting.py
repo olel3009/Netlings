@@ -1,5 +1,5 @@
 import neat
-from IDManager import IDManager
+from app.IDManager import IDManager
 
 data = {
     "environmentSize": {"width": 1000, "height": 1000},

@@ -67,16 +67,28 @@ class Quadtree:
             # Wenn die maximale Kapazität erreicht wird, unterteilen
             if len(self.contents) > self.maxContent:
                 self.subdivide()
+                self.contents = []
             return True
 
         # Falls bereits unterteilt, leite an den passenden Unterbaum weiter
         self._insert_into_subtree(obj)
         return True
 
+    def getListFromAll(self):
+        result = list(self.contents)
+
+        if self.type == ObjectType.RECTANGLE:
+            return result
+
+        for subtree in self.subTrees.values():
+            if subtree is not None:
+                result.extend(subtree.getListFromAll())
+        return result
+
     def query(self, range):
         """Abfrage von Objekten innerhalb eines gegebenen Rechteckbereichs."""
         found = []
-        # Prüfen, ob der Bereich überhaupt mit diesem Knoten überlappt
+
         bx, by, bwidth, bheight = self.boundary
         if not (
             range.x < bx + bwidth and
@@ -98,5 +110,4 @@ class Quadtree:
         if self.type == ObjectType.QUADTREE:
             for subtree in self.subTrees.values():
                 found.extend(subtree.query(range))
-
         return found
