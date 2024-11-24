@@ -3,6 +3,7 @@ import neat
 
 from app.Netling import Netling
 from app.Setting import data
+from Quadtree import  Quadtree
 
 class Enviroment:
     def __init__(self) -> None:
@@ -10,6 +11,9 @@ class Enviroment:
 
         #Load Settings:
         self.config = data
+
+        #Load Quadtree
+        self.quadtree = Quadtree(0,0, data["width"], data["height"])
 
         #add Netlings to Enviroment:
         for i in range(self.config["netlingSpawnCount"]):
