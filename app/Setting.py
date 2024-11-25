@@ -1,10 +1,10 @@
 import neat
-from app.IDManager import IDManager
+from .IDManager import IDManager
 from app.Quadtree import Quadtree
 
 data = {
     "environmentSize": {"width": 1000, "height": 1000},
-    "netlingSpawnCount": 2
+    "netlingSpawnCount": 100
 }
 config_path = "app/config-feedforward"
 

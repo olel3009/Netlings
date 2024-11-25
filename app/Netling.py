@@ -1,8 +1,8 @@
 import neat
-
-from app.Agent import Agent
-from app.Setting import NEATConfig
-from app.Quadtree import Quadtree
+import math
+from .Agent import Agent
+from .Setting import NEATConfig
+from .Quadtree import Quadtree
 
 class Netling(Agent):
     def __init__(self, genome, x, y, activate):
@@ -16,16 +16,29 @@ class Netling(Agent):
 
     def calculate(self):
         output = self.brain_activate()
-        dx = (output[0] - 0.5) * self.speed
-        dy = (output[0] - 0.5) * self.speed
-        dr = 0
-        self.move(dx, dy, dr)
+
+        # Berechnung des hypothetischen Werts (hyp)
+        hyp = (output[0] - 0.5) * self.speed
+
+        # Umrechnen von output[1] in den Winkelbereich [0, 360]
+        angle = output[1] * 360
+
+        # Umrechnung in Radianten für die trigonometrischen Funktionen
+        angle_rad = math.radians(angle)
+
+        # Berechnung der relativen Koordinaten
+        dx = math.cos(angle_rad) * hyp
+        dy = math.sin(angle_rad) * hyp
+
+        # Bewegung durchführen
+        self.move(dx, dy, angle)
 
     def getHitBox(self):
         return Quadtree(self.x - 10, self.y - 10, self.width + 10, self.height + 10)
 
     def brain_activate(self):
-        return self.brain.activate([self.x, self.y])
+        act = self.brain.activate([self.x, self.y])
+        return act
 
     def collect(self):
         return super().collect()
