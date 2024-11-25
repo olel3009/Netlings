@@ -1,12 +1,15 @@
-from fastapi import FastAPI, WebSocket, WebSocketDisconnect
-from typing import List
 import json
 import asyncio
-from numpy import integer
+import os
+import sys
 
-from app.Setting import data
-from app.AgentEnvironment import Enviroment
+from fastapi import FastAPI, WebSocket, WebSocketDisconnect
+from typing import List
+from .Setting import data
+from .AgentEnvironment import Enviroment
 
+os.chdir('app')
+sys.path.append(os.getcwd())
 app = FastAPI()
 
 class ConnectionManager:
@@ -40,7 +43,7 @@ async def websocket_endpoint(websocket: WebSocket, client_id: int):
         while True:
             agents_data = environment.moveAll()
             await manager.broadcast(agents_data)
-            await asyncio.sleep(1 / 30)  # 30 updates per second
+            await asyncio.sleep(1 / 60)  # 30 updates per second
     except WebSocketDisconnect:
         manager.disconnect(websocket)
     except Exception as e:
