@@ -38,7 +38,7 @@
             }
 
             componentDidMount() {
-                this.websocket = new WebSocket("ws://127.0.0.1:8013/ws/1");
+                this.websocket = new WebSocket("ws://127.0.0.1:8017/ws/1");
 
                 this.websocket.onmessage = (event) => {
                     console.log("Message received from server:", event.data);
@@ -70,7 +70,6 @@
                                 key={index}
                                 className={`entity ${entity.type}`}
                                 style={{
-                                    left: `${entity.x}px`,
                                     top: `${entity.y}px`
                                 }}
                             ></div>

@@ -1,4 +1,7 @@
+import math
 from enum import Enum
+from re import match
+
 
 class ObjectType(Enum):
     QUADTREE = "Quadtree"
@@ -85,29 +88,44 @@ class Quadtree:
                 result.extend(subtree.getListFromAll())
         return result
 
-    def query(self, range):
-        """Abfrage von Objekten innerhalb eines gegebenen Rechteckbereichs."""
+    def query(self, range_or_quadtree):
+        """
+        Abfrage von Objekten entweder innerhalb eines Rechteckbereichs
+        oder innerhalb des Bereichs eines anderen Quadtree.
+        """
         found = []
 
+        # Unterscheiden, ob der Parameter ein Rechteckbereich oder ein Quadtree ist
+        if isinstance(range_or_quadtree, Quadtree):
+            # Hole die Grenzen des übergebenen Quadtree
+            range = range_or_quadtree.boundary
+        else:
+            # Verwende den Rechteckbereich direkt
+            range = range_or_quadtree
+
         bx, by, bwidth, bheight = self.boundary
+        rx, ry, rwidth, rheight = range
+
+        # Prüfen, ob die Bereiche sich überschneiden
         if not (
-            range.x < bx + bwidth and
-            range.x + range.width > bx and
-            range.y < by + bheight and
-            range.y + range.height > by
+                rx < bx + bwidth and
+                rx + rwidth > bx and
+                ry < by + bheight and
+                ry + rheight > by
         ):
             return found  # Kein Treffer
 
         # Prüfen, ob Objekte in diesem Knoten gefunden werden
         for obj in self.contents:
             if (
-                range.x <= obj.x < range.x + range.width and
-                range.y <= obj.y < range.y + range.height
+                    rx <= obj.x < rx + rwidth and
+                    ry <= obj.y < ry + rheight
             ):
                 found.append(obj)
 
         # Unterknoten durchsuchen, falls sie existieren
         if self.type == ObjectType.QUADTREE:
             for subtree in self.subTrees.values():
-                found.extend(subtree.query(range))
+                if subtree is not None:
+                    found.extend(subtree.query(range_or_quadtree))
         return found
