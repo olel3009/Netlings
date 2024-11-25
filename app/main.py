@@ -2,6 +2,7 @@ import json
 import asyncio
 import os
 import sys
+import logging
 
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from typing import List
@@ -11,19 +12,21 @@ from .AgentEnvironment import Enviroment
 os.chdir('app')
 sys.path.append(os.getcwd())
 app = FastAPI()
+logger = logging.getLogger(__name__)
 
 class ConnectionManager:
     def __init__(self):
         self.active_connections: List[WebSocket] = []
+        self.logger = logging.getLogger(__name__)
 
     async def connect(self, websocket: WebSocket):
         await websocket.accept()
         self.active_connections.append(websocket)
-        print(f"Client connected: {websocket.client}")
+        logging.info(f"Client connected: {websocket.client}")
 
     def disconnect(self, websocket: WebSocket):
         self.active_connections.remove(websocket)
-        print(f"Client disconnected: {websocket.client}")
+        logging.info(f"Client disconnected: {websocket.client}")
 
     async def broadcast(self, message: dict):
         if not self.active_connections:

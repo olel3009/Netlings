@@ -5,8 +5,8 @@ from .Setting import NEATConfig
 from .Quadtree import Quadtree
 
 class Netling(Agent):
-    def __init__(self, genome, x, y, activate):
-        super().__init__(x, y, 0, activate)
+    def __init__(self, genome, x, y, activate, eventManager):
+        super().__init__(x, y, 0, activate, eventManager=eventManager)
         self.brain = neat.nn.FeedForwardNetwork.create(genome, NEATConfig)
         self.genome = genome
         pass

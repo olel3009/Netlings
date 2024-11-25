@@ -11,9 +11,10 @@ class Agent(BaseModell):
                 speed: float = 10,
                 food: int = 100,
                 width: int = 10,
-                height: int = 10
+                height: int = 10,
+                eventManager = None
              ):
-        super().__init__(x, y, r, width, heigt)
+        super().__init__(x, y, r, width, height, eventManager)
         self.active = active
         self.food = food
         self.speed = speed
@@ -29,13 +30,9 @@ class Agent(BaseModell):
     def cordsInGameField(self, x, y):
         environment_width = data["environmentSize"]["width"]
         environment_height = data["environmentSize"]["height"]
-
         if x < 0 or x > environment_width or y < 0 or y > environment_height:
             return False
         return True
 
     def calculate(self):
         pass
-
-    def collision(self, instance):
-        return None

@@ -129,3 +129,12 @@ class Quadtree:
                 if subtree is not None:
                     found.extend(subtree.query(range_or_quadtree))
         return found
+
+    def remove(self, obj):
+        """Entfernt ein Objekt aus dem Quadtree."""
+        if self.type == ObjectType.RECTANGLE and obj in self.objects:
+            self.objects.remove(obj)
+        else:
+            for subtree in self.subtrees:
+                if subtree.contains(obj):
+                    subtree.remove(obj)
